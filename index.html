@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>聞く植物園｜ハギ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      background: #f4f1e8;
+      color: #2f3b2f;
+      line-height: 1.8;
+    }
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .card {
+      background: #fffdf6;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
+      border: 1px solid #d9d0bd;
+    }
+    .tag {
+      display: inline-block;
+      background: #dfe8d8;
+      color: #4b5d43;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      color: #3d4f35;
+    }
+    .subtitle {
+      color: #6c705f;
+      margin-top: 2px;
+      margin-bottom: 20px;
+    }
+    .photo {
+      height: 220px;
+      border-radius: 18px;
+      background:
+        linear-gradient(rgba(80,100,70,.15), rgba(80,100,70,.15)),
+        radial-gradient(circle at 30% 30%, #d9c3d8 0 10%, transparent 11%),
+        radial-gradient(circle at 60% 45%, #c08ab8 0 8%, transparent 9%),
+        radial-gradient(circle at 45% 65%, #a873a3 0 7%, transparent 8%),
+        linear-gradient(135deg, #b9caa3, #eef1dc);
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      letter-spacing: .08em;
+      margin: 18px 0;
+      overflow: hidden;
+    }
+    .photo span {
+      background: rgba(0,0,0,.25);
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+    .section {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid #e5ddcc;
+    }
+    h2 {
+      font-size: 20px;
+      margin: 0 0 8px;
+      color: #506a47;
+    }
+    .button {
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 16px;
+      background: #557b4b;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .button.stop {
+      background: #8b6f4e;
+    }
+    .note {
+      background: #edf3e8;
+      border-left: 5px solid #78936b;
+      padding: 14px 16px;
+      border-radius: 12px;
+      margin-top: 14px;
+    }
+    .small {
+      font-size: 14px;
+      color: #777;
+      text-align: center;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="tag">聞く植物園</div>
+      <h1>ハギ</h1>
+      <p class="subtitle">秋の訪れを知らせる、万葉集ゆかりの植物</p>
+
+      <div class="photo"><span>植物写真スペース</span></div>
+
+      <div class="section">
+        <h2>この植物について</h2>
+        <p>
+          ハギは、秋を代表する植物のひとつです。小さな花が枝に沿って咲く姿が特徴で、
+          昔の人々は季節の移り変わりを感じる植物として親しんできました。
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>音声ガイド</h2>
+        <p>画面を見続けるのではなく、音声を聞きながら実際の植物を観察してみてください。</p>
+        <button class="button" onclick="playGuide()">▶ 音声を聞く</button>
+        <button class="button stop" onclick="stopGuide()">■ 停止</button>
+      </div>
+
+      <div class="section">
+        <h2>観察のポイント</h2>
+        <div class="note">
+          花の形、葉の付き方、枝の広がり方に注目してみましょう。説明を読むだけでなく、
+          自分の目で植物の特徴を見つけることがこのプロトタイプの目的です。
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>このプロトタイプの考え方</h2>
+        <p>
+          技術を目立たせるのではなく、自然を見るきっかけとして使います。
+          QRコードと音声ガイドによって、来園者の意識をスマホ画面ではなく植物そのものへ向けます。
+        </p>
+      </div>
+
+      <p class="small">Field Exercise Prototype｜QR音声ガイド</p>
+    </section>
+  </main>
+
+  <script>
+    const text = "この植物はハギです。ハギは秋を代表する植物のひとつで、万葉集にも多く登場します。小さな花や葉の形に注目しながら、実際の植物を観察してみてください。";
+    function playGuide() {
+      if (!("speechSynthesis" in window)) {
+        alert("この端末では音声読み上げに対応していません。");
+        return;
+      }
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ja-JP";
+      utterance.rate = 0.9;
+      speechSynthesis.speak(utterance);
+    }
+    function stopGuide() {
+      if ("speechSynthesis" in window) {
+        speechSynthesis.cancel();
+      }
+    }
+  </script>
+</body>
+</html>
