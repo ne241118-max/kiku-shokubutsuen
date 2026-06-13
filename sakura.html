@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>聞く植物園｜サクラ</title>
+  <style>
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:#f7f2f2;color:#2f3b2f;line-height:1.8}
+    .wrap{max-width:720px;margin:0 auto;padding:20px}
+    .card{background:#fffdf8;border-radius:22px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.08);border:1px solid #e4d2d2}
+    .tag{display:inline-block;background:#f2dde3;color:#7a4e5a;padding:6px 12px;border-radius:999px;font-size:14px;margin-bottom:12px}
+    h1{margin:0;font-size:34px;color:#7a4e5a}
+    .subtitle{color:#6c705f;margin-top:2px;margin-bottom:20px}
+    .photo{height:220px;border-radius:18px;background:linear-gradient(rgba(255,255,255,.15),rgba(255,255,255,.15)),radial-gradient(circle at 25% 25%,#ffd7e2 0 9%,transparent 10%),radial-gradient(circle at 55% 35%,#fff0f5 0 8%,transparent 9%),radial-gradient(circle at 75% 55%,#f3a9bd 0 9%,transparent 10%),linear-gradient(135deg,#8b6f4e,#cbd8b8);display:flex;align-items:end;justify-content:center;color:#fff;font-weight:bold;letter-spacing:.08em;margin:18px 0;overflow:hidden}
+    .photo span{background:rgba(0,0,0,.25);width:100%;text-align:center;padding:10px}
+    .section{margin-top:24px;padding-top:18px;border-top:1px solid #eadada}
+    h2{font-size:20px;margin:0 0 8px;color:#7a4e5a}
+    .button{width:100%;border:none;border-radius:16px;padding:16px;background:#8c5f6a;color:white;font-size:18px;font-weight:bold;margin-top:10px}
+    .button.stop{background:#8b6f4e}
+    .note{background:#f8ecef;border-left:5px solid #c48293;padding:14px 16px;border-radius:12px;margin-top:14px}
+    .small{font-size:14px;color:#777;text-align:center;margin-top:24px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="tag">聞く植物園</div>
+      <h1>サクラ</h1>
+      <p class="subtitle">春を象徴する、日本人に親しまれてきた植物</p>
+      <div class="photo"><span>植物写真スペース</span></div>
+
+      <div class="section">
+        <h2>この植物について</h2>
+        <p>
+          サクラは、春を代表する植物として多くの人に親しまれています。
+          花が一斉に咲き、短い期間で散っていく姿は、季節の移ろいや時間の流れを感じさせます。
+          植物を通して季節を味わう感覚は、昔から大切にされてきました。
+        </p>
+      </div>
+
+      <div class="section">
+        <h2>音声ガイド</h2>
+        <p>画面を見続けるのではなく、音声を聞きながら実際の植物を観察してみてください。</p>
+        <button class="button" onclick="playGuide()">▶ 音声を聞く</button>
+        <button class="button stop" onclick="stopGuide()">■ 停止</button>
+      </div>
+
+      <div class="section">
+        <h2>観察のポイント</h2>
+        <div class="note">
+          花びらの形、枝の広がり方、花の咲き方に注目してみましょう。
+          サクラは花そのものだけでなく、咲いている時間の短さや散り方にも魅力があります。
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>このプロトタイプの考え方</h2>
+        <p>
+          技術を目立たせるのではなく、自然を見るきっかけとして使います。
+          QRコードと音声ガイドによって、来園者の意識をスマホ画面ではなく植物そのものへ向けます。
+        </p>
+      </div>
+
+      <p class="small">Field Exercise Prototype｜QR音声ガイド</p>
+    </section>
+  </main>
+
+  <script>
+    const text = "この植物はサクラです。サクラは春を代表する植物で、多くの人に親しまれてきました。花が一斉に咲き、短い期間で散っていく姿は、季節の移ろいや時間の流れを感じさせます。ぜひ花びらの形や枝の広がり方、咲き方に注目して観察してみてください。";
+    function playGuide(){
+      if(!("speechSynthesis" in window)){alert("この端末では音声読み上げに対応していません。");return;}
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ja-JP";
+      utterance.rate = 0.9;
+      speechSynthesis.speak(utterance);
+    }
+    function stopGuide(){
+      if("speechSynthesis" in window){speechSynthesis.cancel();}
+    }
+  </script>
+</body>
+</html>
